@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#181c22">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Ævum: I Frammenti dell'Anima — Gestore PG, PNG &amp; Creature</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/svg+xml" href="./icons/icon.svg">
+    <link rel="apple-touch-icon" href="./icons/icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="sidebar-overlay" id="overlay" onclick="AevumApp.closeSidebar()"></div>
+
+    <!-- SIDEBAR ARCHIVIO UNIFICATO -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-lockup">
+                <div class="brand-symbol" aria-hidden="true">
+                    <img src="./icons/icon.svg" alt="Ævum" width="36" height="36" style="display:block;">
+                </div>
+                <div>
+                    <h2>Ævum Gestore</h2>
+                    <span>PG · PNG · Bestiario</span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="mobileCloseBtn" style="display:none;" onclick="AevumApp.closeSidebar()">✕</button>
+        </div>
+
+        <div class="filter-pills" id="sidebarFilterPills">
+            <button type="button" class="filter-pill active" data-filter="all" onclick="AevumApp.setFilter('all')">Tutti</button>
+            <button type="button" class="filter-pill pill-pg" data-filter="pg" onclick="AevumApp.setFilter('pg')">PG</button>
+            <button type="button" class="filter-pill pill-png" data-filter="png" onclick="AevumApp.setFilter('png')">PNG</button>
+            <button type="button" class="filter-pill pill-creature" data-filter="creature" onclick="AevumApp.setFilter('creature')">Creature</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Cerca nome, specie, taglia..." oninput="AevumApp.renderSidebar()">
+        </div>
+
+        <div class="new-buttons-grid">
+            <button type="button" class="btn btn-pg btn-sm" onclick="AevumApp.openNewTab('pg'); AevumApp.closeSidebar();">+ PG</button>
+            <button type="button" class="btn btn-png btn-sm" onclick="AevumApp.openNewTab('png'); AevumApp.closeSidebar();">+ PNG</button>
+            <button type="button" class="btn btn-creature btn-sm" onclick="AevumApp.openNewTab('creature'); AevumApp.closeSidebar();">+ Creatura</button>
+        </div>
+
+        <ul id="entityList" class="char-list"></ul>
+
+        <div class="io-panel">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="AevumStorage.exportAllBackup()">💾 Esporta Backup Completo</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="AevumApp.exportActiveEntity()">📄 Esporta Scheda Attiva</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('importFile').click()">📂 Importa File JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;" onchange="AevumApp.handleImportFile(event)">
+        </div>
+    </aside>
+
+    <!-- AREA PRINCIPALE -->
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="AevumApp.openSidebar()">☰ Archivio</button>
+            <div class="mobile-title-wrap">
+                <img src="./icons/icon.svg" alt="Æ" width="26" height="26" style="display:block; flex-shrink:0;">
+                <h1 id="mobileHeaderTitle">Ævum Gestore</h1>
+            </div>
+            <button type="button" class="btn btn-success btn-sm" onclick="AevumApp.saveActiveTab()">Salva</button>
+        </header>
+
+        <!-- BARRA A SCHEDE UNICA (VERDE=PG, GIALLO=PNG, ROSSO=CREATURA) -->
+        <nav class="tabs-bar" id="tabsBar" aria-label="Schede aperte"></nav>
+
+        <!-- CONTENUTO DINAMICO DELLA SCHEDA ATTIVA -->
+        <main class="main-content" id="mainContent"></main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-card">
+            <h3 id="modalTitle">Conferma</h3>
+            <p id="modalMessage">Sei sicuro di voler procedere?</p>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/pg-sheet.js"></script>
+    <script src="./js/creature-sheet.js"></script>
+    <script src="./js/app.js"></script>
+    <div class="modal-backdrop" id="aiPromptModal" onclick="if(event.target===this) AevumCreatureSheet.closeAiPromptModal()">
+        <div class="modal-card" style="max-width: 680px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <h3 style="margin:0;">✨ Prompt IA per Scheda Creatura</h3>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="AevumCreatureSheet.closeAiPromptModal()">✕</button>
+            </div>
+            <p style="margin-bottom:12px;">Copia il prompt qui sotto e incollalo nella chat con la tua IA: contiene già la descrizione e tutti i parametri selezionati per questa creatura.</p>
+            <textarea id="aiPromptTextarea" rows="13" readonly style="font-family:'JetBrains Mono', monospace; font-size:12px; line-height:1.45; margin-bottom:14px;"></textarea>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="AevumCreatureSheet.closeAiPromptModal()">Chiudi</button>
+                <button type="button" class="btn btn-success btn-sm" id="copyAiPromptBtn" onclick="AevumCreatureSheet.copyAiPrompt()">📋 Copia Prompt</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

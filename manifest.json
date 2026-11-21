@@ -1,0 +1,19 @@
+{
+  "name": "Ævum: I Frammenti dell'Anima - Gestore PG, PNG & Creature",
+  "short_name": "Ævum Gestore",
+  "description": "Gestore schede PG, PNG e Bestiario per Ævum: I Frammenti dell'Anima",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#111317",
+  "theme_color": "#181c22",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
