@@ -38,18 +38,18 @@ window.AevumCreatureSheet = {
                             <div class="row">
                                 <div class="field-group" style="flex:2; min-width:180px;">
                                     <label>Nome Creatura:</label>
-                                    <input type="text" id="c_name" placeholder="Es. Litarmadillo Corrosivo" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_name" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                                 <div class="field-group" style="flex:1.5; min-width:160px;">
-                                    <label>Nome Scientifico / Epiteto:</label>
-                                    <input type="text" id="c_epithet" placeholder="Nome latino / titolo" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <label>Nome Scientifico:</label>
+                                    <input type="text" id="c_epithet" placeholder="Nome latino" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="field-group">
-                                    <label>Tipo / Natura (Phylum):</label>
-                                    <input type="text" id="c_category" list="phylumSuggestions" placeholder="Es. Bestia, Morbo, Ritornato" style="width:155px;" oninput="AevumCreatureSheet.edited()">
+                                    <label>Tipo:</label>
+                                    <input type="text" id="c_category" list="phylumSuggestions" placeholder="Es: Bestia" style="width:155px;" oninput="AevumCreatureSheet.edited()">
                                     <datalist id="phylumSuggestions">
                                         <option value="Assemblato"></option>
                                         <option value="Bestia"></option>
@@ -91,47 +91,47 @@ window.AevumCreatureSheet = {
                                     </select>
                                 </div>
                                 <div class="field-group">
-                                    <label>Manovre / Round:</label>
-                                    <input type="text" id="c_maneuvers_round" class="mono-input" placeholder="Es. 2" style="width:62px; text-align:center;" oninput="AevumCreatureSheet.edited()">
+                                    <label>Manovre:</label>
+                                    <input type="text" id="c_maneuvers_round" class="mono-input" placeholder="" style="width:62px; text-align:center;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="field-group" style="flex:1; min-width:200px;">
                                     <label>Movimento [Base]:</label>
-                                    <input type="text" id="c_movement" placeholder="Es. 6m (Scavare 6m)" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_movement" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                                 <div class="field-group" style="flex:1; min-width:160px;">
                                     <label>Linguaggi:</label>
-                                    <input type="text" id="c_languages" placeholder="-" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_languages" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                                 <div class="field-group" style="flex:1; min-width:160px;">
                                     <label>Habitat / Regione:</label>
-                                    <input type="text" id="c_habitat" placeholder="Es. Deserto" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_habitat" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="field-group" style="flex:1; min-width:200px;">
                                     <label>Vulnerabilità:</label>
-                                    <input type="text" id="c_vuln" placeholder="Es. Contundente, Folgorante" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_vuln" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                                 <div class="field-group" style="flex:1; min-width:200px;">
                                     <label>Tolleranze:</label>
-                                    <input type="text" id="c_tol" placeholder="Es. Tagliente, Perforante" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_tol" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                                 <div class="field-group" style="flex:1; min-width:200px;">
                                     <label>Immunità:</label>
-                                    <input type="text" id="c_imm" placeholder="Es. Corrosivo" style="flex:1;" oninput="AevumCreatureSheet.edited()">
+                                    <input type="text" id="c_imm" placeholder="" style="flex:1;" oninput="AevumCreatureSheet.edited()">
                                 </div>
                             </div>
 
                             <div style="margin-top:10px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
-                                    <label for="c_description" style="font-weight:600; color:var(--text-primary);">Descrizione Creatura (Aspetto, Concept &amp; Ruolo):</label>
-                                    <button type="button" class="btn btn-sm" onclick="AevumCreatureSheet.openAiPromptModal()">✨ Genera Prompt IA</button>
+                                    <label for="c_description" style="font-weight:600; color:var(--text-primary);">Descrizione Creatura:</label>
+                                    <button type="button" class="btn btn-sm" onclick="AevumCreatureSheet.openAiPromptModal()">Genera Prompt IA</button>
                                 </div>
-                                <textarea id="c_description" rows="3" placeholder="Descrivi l'aspetto, il comportamento, l'ambiente e l'idea alla base della creatura..." oninput="AevumCreatureSheet.edited()"></textarea>
+                                <textarea id="c_description" rows="3" placeholder="Descrivi l'aspetto, il comportamento e l'idea alla base della creatura. Impostando la Letalità e premendo il pulsante 'Genera Prompt IA' verrà generato un prompt da inviare ad una IA per aiutarti a dare vita alla creatura che hai in mente. ATTENZIONE: il prompt è pensato per una IA che non conosce il gioco e nonostante vengano forniti elementi della Tabella 26.1, la risposta dell'IA è da controllare e adattare alle regole." oninput="AevumCreatureSheet.edited()"></textarea>
                             </div>
                         </div>
 
@@ -158,7 +158,7 @@ window.AevumCreatureSheet = {
             </div>
 
             <!-- 2. VITALITÀ, RESISTENZE & DADI ABILITÀ -->
-            <div class="section-title">2. Vitalità, Resistenze &amp; Dadi Abilità</div>
+            <div class="section-title">2. Statistiche</div>
             <div class="section-collapse-content">
                 <div class="two-col-grid" style="margin-bottom:14px;">
                     <div class="card-box" style="margin-bottom:0;">
@@ -183,10 +183,10 @@ window.AevumCreatureSheet = {
                         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
                             <span id="hpPercentText" class="mono" style="font-size:12px; color:var(--text-secondary);">PC: 0 / 0</span>
                             <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                                <button type="button" class="btn-mini dmg" onclick="AevumCreatureSheet.adjustHp(-20)">-20</button>
                                 <button type="button" class="btn-mini dmg" onclick="AevumCreatureSheet.adjustHp(-10)">-10</button>
                                 <button type="button" class="btn-mini dmg" onclick="AevumCreatureSheet.adjustHp(-5)">-5</button>
                                 <button type="button" class="btn-mini dmg" onclick="AevumCreatureSheet.adjustHp(-1)">-1</button>
-                                <button type="button" class="btn-mini" onclick="AevumCreatureSheet.adjustHp(5)">+5</button>
                                 <button type="button" class="btn-mini" onclick="AevumCreatureSheet.fullHeal()">Max</button>
                             </div>
                         </div>
@@ -197,7 +197,7 @@ window.AevumCreatureSheet = {
 
                     <div class="card-box" style="margin-bottom:0;">
                         <h4>
-                            <span>Resistenze (VIG · RIF · INT · PRE)</span>
+                            <span>Resistenze</span>
                             <span class="mono" style="font-size:12px; color:var(--accent-aether);">Somma: <span id="resTotalDisplay">0</span></span>
                         </h4>
                         <div id="resContainer"></div>
@@ -205,7 +205,7 @@ window.AevumCreatureSheet = {
                 </div>
 
                 <div class="card-box">
-                    <h4>Dadi Abilità Principali</h4>
+                    <h4>Dadi Abilità</h4>
                     <div class="macro-dice-grid" id="macroDiceGrid"></div>
                 </div>
             </div>
@@ -215,7 +215,7 @@ window.AevumCreatureSheet = {
             <div class="section-collapse-content">
                 <div class="card-box">
                     <h4>
-                        <span>Manovre (Attacco · Maestria · Contrasto · Base)</span>
+                        <span>Manovre</span>
                         <button type="button" class="btn btn-sm" onclick="AevumCreatureSheet.addManeuver(); AevumCreatureSheet.edited();">+ Manovra</button>
                     </h4>
                     <div id="maneuversList"></div>
@@ -223,7 +223,7 @@ window.AevumCreatureSheet = {
 
                 <div class="card-box">
                     <h4>
-                        <span>Peculiarità &amp; Tratti Speciali</span>
+                        <span>Peculiarità</span>
                         <button type="button" class="btn btn-sm" onclick="AevumCreatureSheet.addPeculiarity(); AevumCreatureSheet.edited();">+ Peculiarità</button>
                     </h4>
                     <div id="peculiaritiesList"></div>
@@ -258,7 +258,7 @@ window.AevumCreatureSheet = {
             </div>
 
             <!-- 5. MORFOLOGIA, ETOLOGIA & NOTE -->
-            <div class="section-title">5. Morfologia, Etologia &amp; Note del Giudice</div>
+            <div class="section-title">5. Morfologia, Etologia &amp; Note</div>
             <div class="section-collapse-content">
                 <div class="card-box">
                     <div style="margin-bottom:10px;">
@@ -270,7 +270,7 @@ window.AevumCreatureSheet = {
                         <textarea id="c_lore_extra" rows="3" oninput="AevumCreatureSheet.edited()"></textarea>
                     </div>
                     <div>
-                        <label>Note del Giudice (Tattica &amp; Incontro):</label>
+                        <label>Note del Giudice:</label>
                         <textarea id="c_gm_notes" rows="3" oninput="AevumCreatureSheet.edited()"></textarea>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ window.AevumCreatureSheet = {
         const t = data.type || "MANOVRA [ATTACCO]";
         card.innerHTML = `
             <div class="sub-card-top">
-                <input type="text" class="m-name" placeholder="Nome Manovra..." value="${this.escAttr(data.name)}" style="flex:1.5; min-width:140px; font-weight:600;" oninput="AevumCreatureSheet.edited()">
+                <input type="text" class="m-name" placeholder="Nome Manovra" value="${this.escAttr(data.name)}" style="flex:1.5; min-width:140px; font-weight:600;" oninput="AevumCreatureSheet.edited()">
                 <select class="m-type" onchange="AevumCreatureSheet.edited()">
                     <option value="MANOVRA [ATTACCO]" ${t === "MANOVRA [ATTACCO]" ? "selected" : ""}>MANOVRA [ATTACCO]</option>
                     <option value="MANOVRA [MAESTRIA]" ${t === "MANOVRA [MAESTRIA]" ? "selected" : ""}>MANOVRA [MAESTRIA]</option>
@@ -453,10 +453,10 @@ window.AevumCreatureSheet = {
                 <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.maneuver-item').remove(); AevumCreatureSheet.edited();">🗑</button>
             </div>
             <div class="row" style="margin-bottom:8px;">
-                <input type="text" class="m-damage" placeholder="Danni (es. 15 PC [FERITA/TAGLIENTE])" value="${this.escAttr(data.damage)}" style="flex:1.4; min-width:170px;" oninput="AevumCreatureSheet.edited()">
+                <input type="text" class="m-damage" placeholder="Danni" value="${this.escAttr(data.damage)}" style="flex:1.4; min-width:170px;" oninput="AevumCreatureSheet.edited()">
                 <input type="text" class="m-crit" placeholder="Risultato Critico" value="${this.escAttr(data.crit)}" style="flex:1.4; min-width:170px;" oninput="AevumCreatureSheet.edited()">
             </div>
-            <textarea class="m-desc" rows="2" placeholder="Descrizione effetto e condizioni..." oninput="AevumCreatureSheet.edited()">${this.escHtml(data.desc)}</textarea>
+            <textarea class="m-desc" rows="2" placeholder="Descrizione" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.desc)}</textarea>
         `;
         container.appendChild(card);
     },
@@ -467,10 +467,10 @@ window.AevumCreatureSheet = {
         card.className = "sub-card pec-item";
         card.innerHTML = `
             <div class="sub-card-top">
-                <input type="text" class="p-name" placeholder="Nome Peculiarità..." value="${this.escAttr(data.name)}" style="flex:1; font-weight:600;" oninput="AevumCreatureSheet.edited()">
+                <input type="text" class="p-name" placeholder="Nome Peculiarità" value="${this.escAttr(data.name)}" style="flex:1; font-weight:600;" oninput="AevumCreatureSheet.edited()">
                 <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.pec-item').remove(); AevumCreatureSheet.edited();">🗑</button>
             </div>
-            <textarea class="p-desc" rows="2" placeholder="Descrizione tratto..." oninput="AevumCreatureSheet.edited()">${this.escHtml(data.desc)}</textarea>
+            <textarea class="p-desc" rows="2" placeholder="Descrizione" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.desc)}</textarea>
         `;
         container.appendChild(card);
     },
@@ -486,7 +486,7 @@ window.AevumCreatureSheet = {
                 <input type="text" class="l-val" placeholder="Valore" value="${this.escAttr(data.value)}" style="width:85px;" oninput="AevumCreatureSheet.edited()">
                 <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.loot-item').remove(); AevumCreatureSheet.edited();">🗑</button>
             </div>
-            <textarea class="l-note" rows="2" placeholder="Effetto alchemico / artigianale..." oninput="AevumCreatureSheet.edited()">${this.escHtml(data.note)}</textarea>
+            <textarea class="l-note" rows="2" placeholder="Descrizione" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.note)}</textarea>
         `;
         container.appendChild(card);
     },
@@ -519,7 +519,7 @@ window.AevumCreatureSheet = {
         const diff = data.difficulty || "Semplice";
         card.innerHTML = `
             <div class="sub-card-top">
-                <input type="text" class="k-title" placeholder="Titolo Conoscenza..." value="${this.escAttr(data.title)}" style="flex:1.4; min-width:130px; font-weight:600;" oninput="AevumCreatureSheet.edited()">
+                <input type="text" class="k-title" placeholder="Titolo Conoscenza" value="${this.escAttr(data.title)}" style="flex:1.4; min-width:130px; font-weight:600;" oninput="AevumCreatureSheet.edited()">
                 <select class="k-diff" onchange="AevumCreatureSheet.edited()">
                     <option value="Semplice" ${diff === "Semplice" ? "selected" : ""}>Semplice</option>
                     <option value="Media" ${diff === "Media" ? "selected" : ""}>Media</option>
@@ -527,11 +527,11 @@ window.AevumCreatureSheet = {
                     <option value="Ardua" ${diff === "Ardua" ? "selected" : ""}>Ardua</option>
                     <option value="Eroica" ${diff === "Eroica" ? "selected" : ""}>Eroica</option>
                 </select>
-                <input type="text" class="k-skill" placeholder="Abilità / Fonte" value="${this.escAttr(data.skill)}" style="width:125px;" oninput="AevumCreatureSheet.edited()">
+                <input type="text" class="k-skill" placeholder="[Abilità]" value="${this.escAttr(data.skill)}" style="width:125px;" oninput="AevumCreatureSheet.edited()">
                 <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.know-item').remove(); AevumCreatureSheet.edited();">🗑</button>
             </div>
-            <textarea class="k-quote" rows="2" placeholder="Estratto narrativo..." style="margin-bottom:6px;" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.quote)}</textarea>
-            <textarea class="k-benefit" rows="2" placeholder="Beneficio meccanico / Punto debole..." oninput="AevumCreatureSheet.edited()">${this.escHtml(data.benefit)}</textarea>
+            <textarea class="k-quote" rows="2" placeholder="Estratto narrativo" style="margin-bottom:6px;" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.quote)}</textarea>
+            <textarea class="k-benefit" rows="2" placeholder="Beneficio meccanico" oninput="AevumCreatureSheet.edited()">${this.escHtml(data.benefit)}</textarea>
         `;
         container.appendChild(card);
     },

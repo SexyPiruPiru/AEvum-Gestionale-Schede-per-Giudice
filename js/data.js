@@ -15,11 +15,11 @@ window.AevumData = {
     ],
 
     DEBUFF_ICONS: [
-        { icon: "🩸", name: "Ferita" },
-        { icon: "🧪", name: "Avvelenamento" },
-        { icon: "☢️", name: "Malattia" },
-        { icon: "🔥", name: "Termico" },
-        { icon: "🪫", name: "Esausto" }
+        { icon: "🩸Ferita", name: "Ferita" },
+        { icon: "🧪Veleno", name: "Avvelenamento" },
+        { icon: "☢️Malattia", name: "Malattia" },
+        { icon: "🔥Termico", name: "Termico" },
+        { icon: "🪫Esausto", name: "Esausto" }
     ],
 
     SPECIES_LIST: ["Jawara", "Licas", "Mezzelfo", "Mezzorco", "Nano", "Umano"],
@@ -65,21 +65,21 @@ window.AevumData = {
     ],
 
     PHYLUM_NOTES: {
-        "Assemblato": "Frutto della tecnologia dell'Impero mosso da Frammenti di Ævum; rari esemplari con Memoria a liquido manifestano semi-coscienza legata all'acqua e all'Ævum.",
+        "Assemblato": "Frutto della tecnologia dell'Impero mosso da Frammenti di Ævum; rari esemplari con Memoria a liquido manifestano semi-coscienza legata all'Ævum.",
         "Bestia": "Creature invertebrate o vertebrate con vita solitaria o di branco, dagli animali comuni ai più singolari.",
         "Civilizzato": "Creature evolute in comunità strutturate con conoscenze anche basilari e uso di attrezzi.",
-        "Drago": "Creature antiche legate al Ciclo: in Quiescenza il corpo diventa casa del nuovo Drago che rinasce dalle sue carni mantenendo il patrimonio genetico.",
+        "Drago": "Creature antiche: in quiescenza il corpo diventa casa del nuovo Drago che rinasce dalle sue carni mantenendo il patrimonio genetico.",
         "Infuso": "Creature nate o modificate dalla convivenza con i Frammenti dell'Ævum, spesso con capacità affini all'alchimia.",
         "Morbo": "Microrganismi simbiotici legati a un altro Phylum che mutano l'ospite: caratteristiche, manovre, peculiarità e conoscenze coesistono, ma in caso di incongruenze prevale il Morbo.",
-        "Ritornato": "Creature aberranti nate da errori che hanno permesso ad alcune anime di tornare dal piano dei vivi dall'Oltremondo."
+        "Ritornato": "Creature aberranti nate da errori che hanno permesso ad alcune anime di tornare sul piano dei vivi dall'Oltremondo."
     },
 
     RULES_REFERENCE_FOR_AI: {
         core: [
-            "Dadi Abilità Creature: A differenza dei Musafir, una creatura ha un unico Dado Abilità per ciascuna Resistenza (VIG, RIF, INT, PRE): qualunque abilità legata a quella Resistenza usa sempre quel dado, assegnando i dadi più alti alle aree più forti.",
-            "Tolleranze, Vulnerabilità e Immunità: Tolleranza = la creatura usa la metà dei PR necessari per ridurre danni o condizioni di quel tipo di danno; Vulnerabilità = usa il doppio dei PR necessari; Immunità = non subisce PC, PM o Condizioni da quel tipo di danno.",
+            "Dadi Abilità Creature: A differenza dei giocatori, una creatura ha un unico Dado Abilità per ciascuna Resistenza (VIG, RIF, INT, PRE): qualunque abilità legata a quella Resistenza usa sempre quel dado, assegnando i dadi più alti alle aree più forti.",
+            "Tolleranze, Vulnerabilità e Immunità: Tolleranza = la creatura usa la metà dei Punti Resistenza necessari per ridurre danni o condizioni di quel tipo di danno; Vulnerabilità = usa il doppio dei PR necessari; Immunità = non subisce Punti Corpo, Punti Mente o Condizioni da quel tipo di danno.",
             "Manovre: Una creatura può compiere più MANOVRE [ATTACCO] nello stesso Round/Turno solo se hanno nomi diversi.",
-            "Conoscenze e Ricompense: Con una Sequenza che include MANOVRA [ATTINGERE AL SAPERE] superata, il Musafir ottiene le Conoscenze pari/inferiori alla Sfida superata e quelle superiori se il tiro supera le relative soglie. Ogni Conoscenza è presentata come estratto narrativo, testimonianza, diario, rapporto o leggenda con fonte/abilità indicata, e dove pertinente include l'effetto o il beneficio in termini meccanici del sistema (es. PR, Condizioni, Danni, resistenze o tattica). Il Punto Debole coincide con la Conoscenza della difficoltà indicata dalla Tabella 26.1. Le Ricompense usano tiri percentuali (1-100%) spendendo una Clessidra per tiro."
+            "Conoscenze e Ricompense: Con una Sequenza che include MANOVRA [ATTINGERE AL SAPERE] superata, il giocatore ottiene delle Conoscenze sulla creatura in esame in base al risultato del suo tiro di dadi. Ogni Conoscenza è presentata come estratto narrativo, testimonianza, diario, rapporto o leggenda con fonte indicata. Il Punto Debole coincide con la Conoscenza della difficoltà indicata dalla Tabella 26.1 e include l'effetto o il beneficio in termini meccanici del sistema (es. PR, Condizioni, Danni o tattica). Le Ricompense usano tiri percentuali (1-100%) spendendo una Clessidra per tiro e devono presentare solo il nome della ricompensa e non l'effetto."
         ],
         contextual: [
             {
@@ -100,16 +100,16 @@ window.AevumData = {
             {
                 id: "phylum_assemblato",
                 keywords: ["assemblato", "costrutto", "macchinario", "macchina", "automa", "memoria a liquido"],
-                text: "Regola Phylum Assemblato: Macchinari imperiali alimentati da Frammenti di Ævum; rarissimi esemplari con Memoria a liquido manifestano semi-coscienza legata all'acqua."
+                text: "Regola Phylum Assemblato: Macchinari alimentati da Frammenti di Ævum; rarissimi esemplari con Memoria a liquido manifestano semi-coscienza legata al liquido che li muove."
             },
             {
                 id: "phylum_drago",
-                keywords: ["drago", "ciclo", "quiescenza"],
-                text: "Regola Phylum Drago: Creature antiche legate al Ciclo; in Quiescenza il corpo diventa casa del nuovo Drago che rinasce dalle sue carni."
+                keywords: ["drago", "antico", "quiescenza", "scaglie"],
+                text: "Regola Phylum Drago: Creature antiche; in Quiescenza il corpo diventa casa del nuovo Drago che rinasce dalle sue carni."
             },
             {
                 id: "terrain_swamp_water",
-                keywords: ["palud", "acqu", "fango", "melma", "sabbie mobili", "nuot", "anfib", "ghiaccio", "scivolos"],
+                keywords: ["palude", "acqua", "fango", "melma", "sabbie mobili", "nuot", "anfib", "ghiaccio", "scivolos"],
                 text: "Movimento e Terreno: Movimenti speciali includono Nuotare, Scalare, Scavare, Volare. Terreno Impervio costa il doppio in metri; Terreno Instabile (paludi, sabbie mobili) può infliggere Trattenuto (si esce con MANOVRA [BASE]); Terreno Scivoloso può infliggere Prono."
             },
             {
@@ -130,12 +130,12 @@ window.AevumData = {
         ]
     },
 
-    CREATURE_DICE_OPTIONS: ["—", "1d4", "1d6", "1d8", "1d10", "1d12", "2d6", "2d8"],
+    CREATURE_DICE_OPTIONS: ["—", "1d4", "1d6", "1d8", "1d10", "1d12", "1d20"],
     MACRO_AREAS: ["Vigore", "Riflessi", "Intuito", "Prestigio"],
     RES_KEYS: ["VIG", "RIF", "INT", "PRE"],
     CONDITIONS_LIST: [
-        "🩸 Ferita", "🧪 Avvelenato", "☢️ Malattia", "🔥 Termico", "🪫 Esausto",
-        "🔗 Trattenuto", "⬇️ Prono", "💫 Stordito", "😱 Intimorito / Spaventato", "🎲 Mala Sorte"
+        "Assordato", "Inabile", "Intimorito", "Prono", "Sanguinante", "Sensibilità alla luce",
+        "Spaventato", "Stordito", "Trattenuto", "Vista Assente", "Vista Ostacolata"
     ],
 
     // Predisposto per le creature del manuale che aggiungerai in seguito
