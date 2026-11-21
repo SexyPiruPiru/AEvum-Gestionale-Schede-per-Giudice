@@ -327,7 +327,6 @@ window.AevumCreatureSheet = {
             card.innerHTML = `
                 <span class="macro-dice-title">${area}</span>
                 <select id="dice_${area}" class="mono-input" onchange="AevumCreatureSheet.edited()">${optsHtml}</select>
-                <input type="text" id="dice_${area}_note" placeholder="Note abilità..." style="font-size:12px; padding:5px 8px;" oninput="AevumCreatureSheet.edited()">
             `;
             diceGrid.appendChild(card);
         });
@@ -552,9 +551,10 @@ window.AevumCreatureSheet = {
 
         const dice = {};
         window.AevumData.MACRO_AREAS.forEach((area) => {
+            const noteEl = document.getElementById(`dice_${area}_note`);
             dice[area] = {
                 die: document.getElementById(`dice_${area}`).value,
-                note: document.getElementById(`dice_${area}_note`).value.trim()
+                note: noteEl ? noteEl.value.trim() : ""
             };
         });
 
@@ -665,7 +665,8 @@ window.AevumCreatureSheet = {
         window.AevumData.MACRO_AREAS.forEach((area) => {
             const sk = (d.dice && d.dice[area]) || {};
             document.getElementById(`dice_${area}`).value = sk.die || "—";
-            document.getElementById(`dice_${area}_note`).value = sk.note || "";
+            const noteEl = document.getElementById(`dice_${area}_note`);
+            if (noteEl) noteEl.value = sk.note || "";
         });
 
         document.getElementById("c_loot_rolls").value = d.lootRolls || "";
