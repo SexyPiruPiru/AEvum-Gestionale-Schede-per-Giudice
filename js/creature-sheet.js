@@ -131,7 +131,7 @@ window.AevumCreatureSheet = {
                                     <label for="c_description" style="font-weight:600; color:var(--text-primary);">Descrizione Creatura:</label>
                                     <button type="button" class="btn btn-sm" onclick="AevumCreatureSheet.openAiPromptModal()">Genera Prompt IA</button>
                                 </div>
-                                <textarea id="c_description" rows="3" placeholder="Descrivi l'aspetto, il comportamento e l'idea alla base della creatura. Impostando la Letalità e premendo il pulsante 'Genera Prompt IA' verrà generato un prompt da inviare ad una IA per aiutarti a dare vita alla creatura che hai in mente. ATTENZIONE: il prompt è pensato per una IA che non conosce il gioco e nonostante vengano forniti elementi della Tabella 26.1, la risposta dell'IA è da controllare e adattare alle regole." oninput="AevumCreatureSheet.edited()"></textarea>
+                                <textarea id="c_description" rows="3" placeholder="Descrivi l'aspetto, il comportamento e l'idea alla base della creatura. Premendo il pulsante 'Genera Prompt IA' verrà generato un prompt da inviare ad una IA per aiutarti a dare vita alla creatura che hai in mente. ATTENZIONE: il prompt è pensato per una IA che non conosce il gioco e nonostante vengano forniti elementi della Tabella 26.1 e di gioco, la risposta dell'IA è da controllare e adattare alle regole." oninput="AevumCreatureSheet.edited()"></textarea>
                             </div>
                         </div>
 
@@ -719,18 +719,6 @@ window.AevumCreatureSheet = {
             }
         });
 
-        const catLower = (d.category || "").trim().toLowerCase();
-        const isOfficialPhylum = phylaList.some((p) => p.toLowerCase() === catLower);
-        if (d.category && !isOfficialPhylum) {
-            selectedRules.unshift(
-                `Phylum del sistema: I 7 Phylum ufficiali sono ${phylaList.join(", ")}. La scheda indica "${d.category}" come Tipo/Natura: mantieni questa descrizione e indica anche a quale Phylum ufficiale (o combinazione, es. Ritornato/Morbo) appartiene.`
-            );
-        } else if (!d.category) {
-            selectedRules.unshift(
-                `Phylum ufficiali del sistema: ${phylaList.join(", ")}. Scegli quello più coerente con la descrizione.`
-            );
-        }
-
         const identityLines = [
             `- Nome: ${d.name || "[Da inventare]"}`,
             `- Nome Scientifico / Epiteto: ${d.epithet || "[Da inventare]"}`,
@@ -753,6 +741,18 @@ window.AevumCreatureSheet = {
             ? resValues.map((r) => `${r.key}: ${r.tot} (Base ${r.b}${r.m ? `, Mod ${r.m >= 0 ? "+" : ""}${r.m}` : ""})`).join(" | ")
             : `[Da ripartire su VIG, RIF, INT, PRE — Somma totale esatta: ${info.resSum !== null ? info.resSum : "Libera (Mortale)"}]`;
 
+        const lootRollsBySize = {
+            "Minuscola": "X1",
+            "Piccola": "X2",
+            "Media": "X3",
+            "Grande": "X5",
+            "Enorme": "X6",
+            "Mastodontica": "X8",
+            "Colossale": "X10"
+        };
+
+        const defaultLootRolls = lootRollsBySize[d.size] || "X2";
+
         const setDice = window.AevumData.MACRO_AREAS
             .map((area) => ({ area, die: d.dice[area]?.die || "—", note: d.dice[area]?.note || "" }))
             .filter((x) => x.die !== "—" || x.note);
@@ -772,7 +772,7 @@ window.AevumCreatureSheet = {
             ).join("\n"));
         }
         if (d.loot.length > 0) {
-            existingBlocks.push(`Ricompense già inserite (Tiri: ${d.lootRolls || "X2"}):\n` + d.loot.map((l) =>
+            existingBlocks.push(`Ricompense già inserite (Tiri: ${d.lootRolls || defaultLootRolls}):\n` + d.loot.map((l) =>
                 `- ${l.range || "?"}: ${l.item || "?"}${l.value ? ` (${l.value})` : ""}${l.note ? ` — ${l.note}` : ""}`
             ).join("\n"));
         }
@@ -792,7 +792,7 @@ Crea o completa in italiano la scheda meccanica e narrativa di questa creatura r
 === REGOLE DI RIFERIMENTO PERTINENTI ===
 ${selectedRules.map((r) => `- ${r}`).join("\n")}
 
-=== PARAMETRI TARGET (TABELLA 26.1 — LETALITÀ ${d.lethality}) ===
+=== PARAMETRI TARGET (TABELLA — LETALITÀ ${d.lethality}) ===
 - PC Consigliati: ${info.pc} | Danni per Turno (DPT): ${info.dpt}
 - Somma Resistenze: ${info.resSum !== null && info.resSum !== undefined ? info.resSum : "Libera (Mortale)"}
 - Dadi Abilità (1° / 2° / 3° / 4°): ${info.d1} / ${info.d2} / ${info.d3} / ${info.d4}
@@ -808,18 +808,19 @@ ${d.description && d.description.trim() ? d.description.trim() : "[Nessuna descr
 - Punti Corpo (PC Max): ${d.pcMax || `[Imposta entro ${info.pc}]`} | Punti Mente (PM Max): ${d.pmMax || "[Da definire]"}
 - Resistenze: ${resLine}
 - Dadi Abilità: ${diceLine}
-- Vulnerabilità: ${d.vulnerabilities || `[Scegli ${info.vuln} tipi di danno coerenti]`}
-- Tolleranze: ${d.tolerances || `[Scegli ${info.tol} tipi di danno coerenti]`}
-- Immunità: ${d.immunities || (String(info.imm) === "0" ? "Nessuna (0 consigliate per questa Letalità)" : `[Scegli ${info.imm} tipi di danno coerenti]`)}
+- Tipi di danno del sistema: Corrosivo, Infezione, Contundente, Perforante, Gelo, Tagliente, Folgorante, Tossico, Ustione
+- Vulnerabilità: ${d.vulnerabilities || `[Scegli ${info.vuln} tipi di danno coerenti dall'elenco Tipi di danno del sistema]`}
+- Tolleranze: ${d.tolerances || `[Scegli ${info.tol} tipi di danno coerenti dall'elenco Tipi di danno del sistema]`}
+- Immunità: ${d.immunities || (String(info.imm) === "0" ? "Nessuna (0 consigliate per questa Letalità)" : `[Scegli ${info.imm} tipi di danno coerenti dall'elenco Tipi di danno del sistema]`)}
 ${existingSection}
 === OUTPUT RICHIESTO ===
 Restituisci in modo ordinato e pronto da trascrivere nella scheda:
-1. Campi mancanti di Identità (Nome, Epiteto, Phylum, Movimento, Vulnerabilità, Tolleranze, Immunità).
+1. Campi mancanti di Identità: Nome, Epiteto, Phylum, Movimento, Vulnerabilità, Tolleranze, Immunità.
 2. Ripartizione esatta di PC Max, PM Max, Resistenze (VIG, RIF, INT, PRE) e Dadi Abilità (Vigore, Riflessi, Intuito, Prestigio).
-3. Manovre complete (con nomi distinti se presenti più MANOVRE [ATTACCO], Tipo [MANOVRA ATTACCO / MANOVRA MAESTRIA / MANOVRA BASE / Contrasto / Sinergia], Portata, Danni coerenti con DPT ${info.dpt}, Risultato Critico ed Effetto).
-4. Peculiarità e Tratti speciali.
-5. Tabella Ricompense 1-100% (Tiri: ${d.lootRolls || "X2"}, con oggetti/reagenti, valore ed effetto).
-6. Conoscenze (Semplice / Media / Difficile / Ardua / Eroica) includendo il Punto Debole alla difficoltà "${info.weak}": per ciascuna indica Titolo, Fonte/Abilità associata, un brano narrativo/testimonianza in corsivo o virgolette (come estratto da diario, rapporto imperiale, cronaca o racconto) e, dove rilevante, l'Effetto meccanico espresso con le regole del sistema.
+3. Manovre complete (con nomi distinti per ogni manovra): tipo MANOVRA ATTACCO (volto ad offendere)/ MANOVRA MAESTRIA (capacità speciale)/ MANOVRA LOTTA (corpo a corpo) / Contrasto (in reazione ad un evento), Portata, Danni coerenti con DPT ${info.dpt} usando una combinazione di un tipo di Indebolimento (Ferita, Termico, Malattia, Avvelenamento, Esausto) con un tipo di danno (Corrosivo, Infezione, Contundente, Perforante, Gelo, Tagliente, Folgorante, Tossico, Ustione), Risultato Critico ed Effetto).
+4. Peculiarità e Tratti speciali: 2–4 capacità brevi in stile manuale (2–4 righe, senza etichette come "(Passiva)"/"(Attiva)"). Ogni voce deve avere un nome evocativo, un innesco chiaro (es. "Fintanto che...", "Al termine del Turno...", "Entro Xm...") e un effetto meccanico esatto (Condizioni, danni in PC/PM, immunità o interazioni ambientali/sinergie). 
+5. Tabella Ricompense 1-100%. Tiri: ${d.lootRolls || defaultLootRolls}, con oggetti / reagenti (solo per reagenti, rarità in ordine crescente A, B, C, D, E, F), valore (da inutile ad alto con valori intermedi) ed effetto solo per ricompense rare.
+6. Conoscenze (Semplice / Media / Difficile / Ardua / Eroica) includendo il Punto Debole alla difficoltà "${info.weak}": per ciascuna indica Titolo, un brano narrativo/testimonianza in corsivo o virgolette (come estratto da diario, rapporto imperiale, cronaca o racconto) e, dove rilevante, l'Effetto meccanico espresso con le regole del sistema o una nuova capacità data ai giocatori contro quella creatura (es. rompere arma, uccisione istantanea, nuove manovre, amputazioni, ecc).
 7. Morfologia ed Etologia, Leggende/Curiosità e Note tattiche per il Giudice.`;
     },
 

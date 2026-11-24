@@ -74,12 +74,17 @@ window.AevumData = {
         "Ritornato": "Creature aberranti nate da errori che hanno permesso ad alcune anime di tornare sul piano dei vivi dall'Oltremondo."
     },
 
-    RULES_REFERENCE_FOR_AI: {
+    RULES_REFERENCE_FOR_AI: { /* REGOLE SEMPRE CITATE */
         core: [
-            "Dadi Abilità Creature: A differenza dei giocatori, una creatura ha un unico Dado Abilità per ciascuna Resistenza (VIG, RIF, INT, PRE): qualunque abilità legata a quella Resistenza usa sempre quel dado, assegnando i dadi più alti alle aree più forti.",
-            "Tolleranze, Vulnerabilità e Immunità: Tolleranza = la creatura usa la metà dei Punti Resistenza necessari per ridurre danni o condizioni di quel tipo di danno; Vulnerabilità = usa il doppio dei PR necessari; Immunità = non subisce Punti Corpo, Punti Mente o Condizioni da quel tipo di danno.",
+            "Dadi Abilità Creature: Una creatura ha un unico Dado Abilità per ciascuna Resistenza (VIG, RIF, INT, PRE) vedendo assegnati i dadi più alti alle aree più forti.",
+            "Tolleranze, Vulnerabilità e Immunità: Tolleranza = la creatura è più resistente a danni o condizioni di quel tipo; Vulnerabilità = la creatura è più vulnerabile a danni o condizioni di quel tipo; Immunità = non subisce danni o condizioni di quel tipo.",
             "Manovre: Una creatura può compiere più MANOVRE [ATTACCO] nello stesso Round/Turno solo se hanno nomi diversi.",
-            "Conoscenze e Ricompense: Con una Sequenza che include MANOVRA [ATTINGERE AL SAPERE] superata, il giocatore ottiene delle Conoscenze sulla creatura in esame in base al risultato del suo tiro di dadi. Ogni Conoscenza è presentata come estratto narrativo, testimonianza, diario, rapporto o leggenda con fonte indicata. Il Punto Debole coincide con la Conoscenza della difficoltà indicata dalla Tabella 26.1 e include l'effetto o il beneficio in termini meccanici del sistema (es. PR, Condizioni, Danni o tattica). Le Ricompense usano tiri percentuali (1-100%) spendendo una Clessidra per tiro e devono presentare solo il nome della ricompensa e non l'effetto."
+            "Conoscenze: Il giocatore ottiene delle Conoscenze sulla creatura in esame in base al risultato di un suo tiro di dadi. Ogni Conoscenza è presentata come estratto narrativo, testimonianza, diario, rapporto o leggenda con fonte indicata. Il Punto Debole coincide con la Conoscenza della difficoltà indicata.",
+            "Ricompense: Le Ricompense usano tiri percentuali (1-100%) e devono presentare nome della ricompensa e l'effetto.",
+            "Phylum del sistema: Scegli quello più coerente con la descrizione tra Assemblato, Bestia, Civilizzato, Drago, Infuso, Morbo, Ritornato",
+            "DPT: Somma i danni base (esclusi i critici) delle manovre d'attacco fino al limite di manovre per turno (rispettando il vincolo di nomi diversi); le manovre di lotta o controllo che non infliggono danno non contribuiscono al DPT.",
+            "Punti Mente: Quando una creatura termina i punti mente impazzisce e non è più in grado di combattere. decretalo autonomamente in base alle competenze mentali e alla letalità.",
+            "Condizioni: un bersaglio può subire le condizioni Assordato, Inabile (svenuto, molti malus), Intimorito (malus verso il timore), Prono, Sanguinante, Sensibile alla Luce, Spaventato (forte malus verso la paura), Stordito (meno malus di Inabile), Trattenuto, Vista Assente, Vista Ostacolata (malus alla vista)."
         ],
         contextual: [
             {
@@ -108,24 +113,39 @@ window.AevumData = {
                 text: "Regola Phylum Drago: Creature antiche; in Quiescenza il corpo diventa casa del nuovo Drago che rinasce dalle sue carni."
             },
             {
-                id: "terrain_swamp_water",
-                keywords: ["palude", "acqua", "fango", "melma", "sabbie mobili", "nuot", "anfib", "ghiaccio", "scivolos"],
-                text: "Movimento e Terreno: Movimenti speciali includono Nuotare, Scalare, Scavare, Volare. Terreno Impervio costa il doppio in metri; Terreno Instabile (paludi, sabbie mobili) può infliggere Trattenuto (si esce con MANOVRA [BASE]); Terreno Scivoloso può infliggere Prono."
+                id: "phylum_bestia",
+                keywords: ["bestia", "animal", "belva", "predator", "branco", "fauna", "selvatic", "feroc", "istint", "zann", "artigl", "pelliccia", "pium", "insett", "rettil", "mammifer", "aracnid", "crostace"],
+                text: "Regola Phylum Bestia: Creature invertebrate o vertebrate con vita solitaria o di branco, dagli animali comuni ai più singolari."
+            },
+            {
+                id: "phylum_civilizzato",
+                keywords: ["civilizzat", "umanoid", "comunità", "tribù", "clan", "villaggio", "città", "insediament", "attrezz", "utensil", "arma", "armi", "spada", "arco", "lancia", "bandit", "soldat", "guardia", "sacerdot", "artigian", "cultura", "linguaggi", "strategi", "tattic"],
+                text: "Regola Phylum Civilizzato: Creature evolute in comunità strutturate con conoscenze anche basilari e uso di attrezzi."
+            },
+            {
+                id: "terreno",
+                keywords: ["terren", "suol", "superfici", "habitat", "region", "ambient", "impervi", "instabil", "scivolos", "palud", "acqu", "fang","melm", "sabbie mobili", "ghiaccio", "neve", "rocc", "dirup", "burron", "foresta", "bosco", "deserto", "cava", "tunnel", "nuot", "scalar", "scavar", "volar"],
+                text: "Movimento e Terreno: Eventuali movimenti speciali includono Nuotare, Scalare, Scavare, Volare."
             },
             {
                 id: "grapple_control",
-                keywords: ["lotta", "afferr", "trascin", "tratten", "prono", "sbilanc", "immobiliz"],
-                text: "Lotta e Condizioni di Controllo: In MANOVRA [LOTTA] chi inizia è Dominante e l'altro Sottomesso (Movimento [Base] 0 per entrambi). Trattenuto = niente movimento, attacchi contro ottengono +1 incremento di dado, attacchi della creatura subiscono -2 decrementi e Mala Sorte su Vigore/Riflessi (niente spesa PR Vigore/Riflessi). Prono = spostamento come strisciare (costo doppio/triplo, rialzarsi costa metà movimento), Mala Sorte ad ATTACCO e MAESTRIA, mischia contro ha Buona Sorte."
+                keywords: ["lotta", "afferr", "trascin", "tratten", "prono", "sbilanc", "immobiliz", "art", "appendic"],
+                text: "Lotta: Le creature che possiedono arti superiori o appendici per afferrare e lottare possono presentare MANOVRA [LOTTA] ed essere in una situazione di lotta corpo a corpo. Durante una situazione di lotta la creatura può trascinare l'avversario, attaccarlo con armi leggere o naturali o usare specifiche manovre in base alle sue caratteristiche morfologiche (es. lanciarlo, ferirlo, applicargli una condizione, effettuare un attacco speciale)."
             },
             {
-                id: "bleed_wound",
-                keywords: ["sanguin", "ferit", "emorrag", "artigl", "morso", "squarc"],
-                text: "Condizione Sanguinante: Infligge i PC indicati tra parentesi a fine Turno (cumulabili) e si interrompe spendendo tutte e 3 le Manovre fuori da un'Area di Minaccia nemica."
+                id: "indebolimento",
+                keywords: ["indeboliment", "danno", "danni", "attacc", "ferit", "sanguin", "emorrag", "tagli", "squarc", "termic", "ustion", "fuoc", "calor", "gel", "ghiacci", "fredd", "malatti", "morbo", "contagi", "infezion", "pest", "putrid", "avvelenament", "velen", "tossic", "corrosiv", "acid", "esaust", "sfinit", "stanc", "affatic", "fiacc"],
+                text: "Tipi di Indebolimento: In base alle particolarità di una creatura essa presenterà uno o più tipi di indebolimento nei suoi attacchi che causano danno. Ferita, Termico, Malattia, Avvelenamento, Esausto."
+            },
+            {
+                id: "sensi",
+                keywords: ["sens", "vision", "vista", "occh", "veder", "oscur", "buio", "notturn", "crepuscol", "termic", "calor", "infraross", "ciec", "ricettor", "ecolocalizz", "sonar", "udit", "olfatt", "telluric", "vibrazion", "suol", "terren", "rocc", "scavar", "sotterrane"],
+                text: "Tipi di sensi: In base alle particolarità di una creatura essa presenterà uno o più tipi di sensi: Visione Notturna, Visione Termica, Vista Cieca (mediante particolari ricettori), Percezione Tellurica (captazione delle vibrazioni)."
             },
             {
                 id: "armor_rule",
                 keywords: ["armatur", "corazz", "scudo", "piastr", "carapace", "guscio"],
-                text: "Armatura e PR: Se la creatura ha pezzi d'armatura che aumentano i PR, i valori in scheda li includono già e si indica tra parentesi il bonus perso se il pezzo viene rotto."
+                text: "Armatura e Punti Resistenza: Se la creatura ha pezzi d'armatura che aumentano i PR, indica il valore totale e tra parentesi l'armatura e il valore da sottrarre al totale nel caso in cui l'armatura venga spezzata."
             }
         ]
     },
